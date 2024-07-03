@@ -175,6 +175,7 @@ export default function Items() {
                             </Box>
                         </Toolbar>
                     </AppBar>
+                    <br></br>
                     <Box className="title-main-box">
                         <Typography sx={{fontWeight : 'bold',fontSize : '20pt',fontFamily : 'Roboto'}}>Data Tables</Typography>
                         <Typography sx={{fontFamily : 'Roboto'}}>Dashboard / <a href="#">Data Tables</a></Typography>

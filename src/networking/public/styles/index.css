@@ -16,10 +16,10 @@
     background-color: rgba(241,245,249,255);
     height: 140vh;
     width: 100%;
-    position: fixed;
     justify-items: center;
     align-items: center;
     flex-direction: column;
+    overflow-x: hidden;
 }
 .centered-box {
     background-color: white;
@@ -28,7 +28,7 @@
     height: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 7px;
-    margin-left: 5.4cm;
+    margin-left: 5.8cm;
     flex-direction: column;
 }
 .search-box-inside-main {
@@ -44,8 +44,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 2.7cm;
-    margin-left: 5.5cm;
+    margin-top: 2cm;
+    margin-right: 0.7cm;
+    margin-left: 5.8cm;
     margin-bottom: 0.3cm;
 }
 .avatar_section {
@@ -68,7 +69,7 @@
     display: flex;
     background-color: white;
     height: 180px;
-    margin-left: 5.4cm;
+    margin-left: 5.8cm;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .left-section { flex-grow: 1; }

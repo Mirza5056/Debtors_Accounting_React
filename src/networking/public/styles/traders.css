@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+.trader-section-container {
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(241,245,249,255);
+    height: 100vh;
+    position: relative;
+}
+.top-section {
+    margin-top: 1.7cm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5.8cm;
+    height: 63px;
+    margin-right: 13px;
+}
+.fonts-icons {
+    display: flex;
+    justify-content: space-between;
+}
+.add-icon {
+    padding: 10px 10px;
+    font-size: large;
+    border-radius: 5px;
+    background-color: white;
+}
+.cancel-icon {
+    padding: 10px 10px;
+    font-size: large;
+    border-radius: 5px;
+    background-color: white;
+}   
+.add-icon:hover {
+    background-color: #ffd43b;
+    cursor: pointer;
+}
+.cancel-icon:hover {
+    background-color: #ffd43b;
+    cursor: pointer;
+}
+.top-section h4 {
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 30px;
+}
+.details-section {
+    background-color: whitesmoke;
+    width: 29.5cm;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 5.8cm;
+    height: auto;
+}
+.trader-settings {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    margin-left: 23.3cm;
+}
+.general-info {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 17px;
+    padding-top: 10px;
+}
+.input-text {
+    font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "YTLC" 500;
+}
+.text-field-width {
+    width: 50%;
+}
