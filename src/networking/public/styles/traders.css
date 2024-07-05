@@ -4,8 +4,8 @@
 .trader-section-container {
     justify-content: center;
     align-items: center;
-    background-color: rgba(241,245,249,255);
-    height: 100vh;
+    background-color: rgba(203,214,226,255);
+    height: 213vh;
     position: relative;
 }
 .top-section {
@@ -54,6 +54,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-left: 5.8cm;
     height: auto;
+    display: flex;
 }
 .trader-settings {
     font-family: "Montserrat", sans-serif;
@@ -82,4 +83,25 @@
 }
 .text-field-width {
     width: 50%;
+}
+.general-information {
+    justify-items: right;
+    text-align: right;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+.bank-info {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-left: 20px;
+}
+.regist-info {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    text-align: right;
+}
+
+.text-width {
+    width: 50%;
+    margin-right: 10px;
 }

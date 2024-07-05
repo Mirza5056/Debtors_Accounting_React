@@ -1,0 +1,34 @@
+.customer-container {
+    display: flex;
+    background-color: rgba(203,214,226,255);
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.main-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5.8cm;
+    margin-top: 2.4cm;
+    flex-direction: row;
+    width: 80%;
+    margin-bottom: 10px;
+}
+.main-heading .actions {
+    display: flex;
+    justify-content: space-between;
+}
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 5.8cm;
+}
+.left-section {
+    flex-basis: 10%;
+}
+.right-section {
+    flex-basis: 50%;
+    margin-left: 4%;
+}

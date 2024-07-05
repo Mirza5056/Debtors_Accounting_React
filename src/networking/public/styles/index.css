@@ -13,7 +13,7 @@
 }
 .searchIconMainBox { display: flex; align-items: center; }
 .mainBack {
-    background-color: rgba(241,245,249,255);
+    background-color: rgba(203,214,226,255);
     height: 140vh;
     width: 100%;
     justify-items: center;
