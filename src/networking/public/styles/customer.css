@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
 .customer-container {
     display: flex;
     background-color: rgba(203,214,226,255);
@@ -26,9 +28,39 @@
     margin-left: 5.8cm;
 }
 .left-section {
-    flex-basis: 10%;
+    flex-basis: 5px;
+    height: 13cm;
 }
 .right-section {
     flex-basis: 50%;
-    margin-left: 4%;
+    margin-left: 1%;
+}
+.customer-text {
+    text-align: center;
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+.left-text {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #2c3e50;
+    text-align: center;
+    flex-direction: column;
+}
+.text-content {
+    color: #fff;
+    background: linear-gradient(to right,#ff7e5f,#feb47b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Anton SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 32px;
+    margin: 0;
 }
