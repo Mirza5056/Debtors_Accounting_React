@@ -1,5 +1,5 @@
 import { AppBar, Avatar, Box, Button, Divider, Drawer, FormControl, IconButton, InputAdornment, ListItemButton, Menu, MenuItem, NativeSelect, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Tooltip, Typography,TableFooter, TablePagination,List,ListItem } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '@fontsource/roboto'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,10 +9,14 @@ import './styles/index.css';
 import rgpvLogo from './images/RGPVLOGO.jfif';
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "@emotion/react";
+import { fetchItemsData, fetchItemsDetails, setItemDetails } from "./actions/ItemActions";
+import { useDispatch, useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 const settings=['Profile','Dashboard','Setting','Logout'];
 export default function Items() {
     const [anchorElUser,setAnchorElUser]=React.useState(null);
-    const [openDrawer,setOpenDrawer]=useState(false);
+    const [openDrawer,setOpenDrawer]=useState(true);
     const openDrawerState=()=>{
         setOpenDrawer(!openDrawer);
     }
@@ -50,7 +54,7 @@ export default function Items() {
         setPage(0);
     }
     const DraweList=(
-        <div className="drawer">
+        <div className="drawer" open={openDrawer}>
             <Toolbar>
                 <IconButton>
                     <Avatar alt="Remy Sharp" src={rgpvLogo} />
@@ -94,6 +98,16 @@ export default function Items() {
             </NativeSelect>
         </FormControl>
     );
+    const dispatch=useDispatch();
+    const items_data=useSelector((state)=> state.items.itemsList);
+    useEffect(()=>{
+        dispatch(fetchItemsData());
+    },[dispatch]);
+    const itemsDetails=useSelector((state)=> state.items.itemsDetails);
+    const itemRowButtonGotClicked=(item)=>{
+        dispatch(setItemDetails(item));
+        dispatch(fetchItemsDetails(item.code));
+    };
     const TableData=(
         <TableContainer>
             <Table stickyHeader>
@@ -107,15 +121,15 @@ export default function Items() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {(rowsPerPage > 0 ? rows.slice(page * rowsPerPage,page * rowsPerPage + rowsPerPage) : rows).map((row)=>(
-                        <TableRow key={row.name}>
-                            <TableCell component="th" scope="row">{row.sno}</TableCell>
+                    {items_data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                        <TableRow key={row.code} onClick={()=> itemRowButtonGotClicked(row)}>
+                            <TableCell component="th" scope="row">{row.code}</TableCell>
                             <TableCell>{row.name}</TableCell>
                             <TableCell>{row.hsn_code}</TableCell>
-                            <TableCell>{row.edit}</TableCell>
-                            <TableCell>{row.del}</TableCell>
+                            <TableCell><FontAwesomeIcon icon={faEdit} /></TableCell>
+                            <TableCell><FontAwesomeIcon icon={faRemove} /></TableCell>
                         </TableRow>
-                    ))} 
+                    ))}
                     {emptyRows > 0 && (
                         <TableRow style={{height : 53 * emptyRows}}>
                             <TableCell colSpan={6}></TableCell>
@@ -191,22 +205,40 @@ export default function Items() {
                     </Box>
                     <br></br>
                     <Box className="detailed-box">
-                        <Box className="left-section">
-                            <Typography sx={{fontFamily : 'Roboto',fontSize : '14pt',letterSpacing : '4px'}} className="items-data">Items Details</Typography>
-                            <Box className="items-data-details">
-                                <Typography>HSN_CODE</Typography>
-                                <Typography>ITEM_CODE</Typography>
-                                <Typography>C G S T</Typography>
-                                <Typography>S G S T</Typography>
-                                <Typography>I G S T</Typography>
-                            </Box>
-                        </Box>
-                        <Box className="right-section">
-                            <Typography sx={{fontFamily : 'Roboto',fontSize : '14pt',letterSpacing : '4px'}} className="unitOfMeasurements">UnitOfMeasurements</Typography>
-                            <Box className="unitofmeasurements-details">
-                                <b>Kg,</b> <b>Ltr,</b> <b>gram,</b> <b>Packet,</b> <b>ml,</b> <b>Box</b>
-                            </Box>
-                        </Box>
+                        {itemsDetails && itemsDetails.length > 0 ? (
+                            itemsDetails.map((item)=>(
+                                <>
+                                <Box className="left-section">
+                                    <Typography sx={{fontFamily : 'Roboto',fontSize : '14pt',letterSpacing : '4px'}} className="items-data">Items Details</Typography>
+                                    <Box className="items-data-details">
+                                        <Box className="item_details_left">
+                                            <Typography>HSN_CODE</Typography> <Typography><b>{item.hsn_code}</b></Typography>
+                                        </Box>
+                                        <Box className="item_details_left">
+                                          <Typography>ITEM_CODE</Typography> <Typography><b>{item.item_code}</b></Typography>
+                                        </Box>
+                                        <Box className="item_details_left">
+                                          <Typography>C G S T</Typography> <Typography><b>{item.cgst}</b></Typography>
+                                        </Box>
+                                        <Box className="item_details_left">
+                                          <Typography>S G S T</Typography> <Typography><b>{item.sgst}</b></Typography>
+                                        </Box>
+                                        <Box className="item_details_left">
+                                          <Typography>I G S T</Typography> <Typography><b>{item.igst}</b></Typography>
+                                        </Box>
+                                    </Box>
+                                    </Box>
+                                    <Box className="right-section">
+                                        <Typography sx={{fontFamily : 'Roboto',fontSize : '14pt',letterSpacing : '4px'}} className="unitOfMeasurements">UnitOfMeasurements</Typography>
+                                        <Box className="unitofmeasurements-details">
+                                            <b>{item.unitOfMeasurements}</b>
+                                        </Box>
+                                    </Box>
+                                </>
+                            ))
+                        ):(
+                            <Typography>Please Select Item Name In Order To Get Details.</Typography>
+                        )}
                     </Box>
                 </Box>
             </Box>

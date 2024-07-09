@@ -45,6 +45,39 @@ app.get('/getStates',async function(request,response){
         response.status(500).send("Internal Server Error");
     }
 });
+app.get('/getItems',async function(request,response){
+    try
+    {
+        var m=new managers.ItemManager();
+        var items=await m.getAllItem();
+        response.send(items);
+    }catch(error) {
+        console.log(error);
+        response.status(500).send("Internal Server Error");
+    }
+});
+app.get('/getByItemCode',async function(request,response){
+    try
+    {
+        var code=request.query.code;
+        var m=new managers.ItemManager();
+        var items=await m.getByItemName(code);
+        response.json(items);
+    }catch(error) {
+        console.log(error);
+        response.status(500).send("Internal Server Error");
+    }
+});
+app.get('/getTraders',async function(request,response){
+    try
+    {
+        var m=new managers.TraderManager();
+        var traders=await m.getAll();
+        response.json(traders);
+    }catch(err) {
+        console.log(err);
+    }
+});
 app.listen(port,function(error){
     if(error) {
         console.log('Some error have been occured please try after some time.');

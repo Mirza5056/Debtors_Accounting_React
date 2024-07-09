@@ -25,44 +25,6 @@ export default function Customer() {
     const stateChanged=(ev)=>{
         setState(ev.target.value);
     }
-    useEffect(()=>{
-        if(customerDetails) {
-            setTextFieldAdd(customerDetails);
-        }
-    },[customerDetails]);
-    const [textFiledAdd,setTextFieldAdd]=useState({
-        code : '',
-        name : '',
-        address : '',
-        reg_title_1 : '',
-        reg_title_2 : '',        
-        reg_title_3 : '',
-        contact_1 : '',
-        contact_2 : '',
-        contact_3 : '',
-        state : '',
-    });
-    const addModuleStarts=()=>{
-        setTextFieldAdd({
-            code : '',
-            name : '',
-            address : '',
-            reg_title_1 : '',
-            reg_title_2 : '',        
-            reg_title_3 : '',
-            contact_1 : '',
-            contact_2 : '',
-            contact_3 : '',
-            state : '',
-        });
-    };
-    const handleChange=(ev)=>{
-        const {name,value}=ev.target;
-        setTextFieldAdd((prevValue)=>({
-            ...prevValue,
-            [name] : value,
-        }));
-    };
     return (
         <React.Fragment>
             <Local />
@@ -70,7 +32,7 @@ export default function Customer() {
                 <Box className="main-heading">
                     <b className="customer-text">Customer's</b>
                     <Box sx={{display : 'flex',justifyContent : 'space-between',width : '12%'}}>
-                        <Fab size="small" onClick={addModuleStarts}><FontAwesomeIcon icon={faUser} /></Fab>
+                        <Fab size="small"><FontAwesomeIcon icon={faUser} /></Fab>
                         <Fab size="small"><FontAwesomeIcon icon={faEdit} /></Fab>
                         <Fab size="small"><FontAwesomeIcon icon={faRemove} /></Fab>
                     </Box>
@@ -96,17 +58,16 @@ export default function Customer() {
                         {customerDetails && customerDetails.length > 0 ? (
                             customerDetails.map((customerData) => (
                                 <Box key={customerData.code} sx={{display : 'flex', flexDirection : 'row', flexWrap : 'wrap', gap : 2, justifyContent : 'center', alignItems : 'center', marginTop : '50px'}}>
-                                    <TextField                                     
+                                    <TextField
                                         value={customerData.code}
                                         sx={{width : '32%'}} 
                                         variant="filled" 
                                         color="success" 
                                         label="Code" 
-                                        helperText="Enter a Customer Code" 
+                                        helperText="Enter a Customer Code"
                                         InputProps={{
                                             readOnly : 'true',
-                                        }}    
-                                        onChange={handleChange}
+                                        }}
                                     />
                                     <TextField
                                         value={customerData.name || ''}
@@ -126,7 +87,8 @@ export default function Customer() {
                                         variant="filled" 
                                         color="success" 
                                         label="Address" 
-                                        helperText="Enter a Customer Address"InputProps={{
+                                        helperText="Enter a Customer Address"
+                                        InputProps={{
                                             readOnly : 'true',
                                         }} 
                                         
@@ -207,7 +169,7 @@ export default function Customer() {
                                         <Select 
                                             variant="filled" 
                                             color="secondary"
-                                            value={state}
+                                            value={customerData.state_code}
                                             onChange={stateChanged}
                                             InputProps={{
                                                 readOnly : 'true',

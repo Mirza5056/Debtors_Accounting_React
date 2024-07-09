@@ -20,6 +20,7 @@
     align-items: center;
     flex-direction: column;
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 .centered-box {
     background-color: white;
@@ -82,3 +83,8 @@
 .unitOfMeasurements { text-align: center; background-color: orange; }
 .items-data-details { margin-left: 30px;margin-top: 10px; }
 .unitofmeasurements-details { margin-top: 50px;text-align: center;}
+.item_details_left {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
