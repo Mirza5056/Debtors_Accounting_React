@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Box, Button, Divider, Drawer, FormControl, IconButton, InputAdornment, ListItemButton, Menu, MenuItem, NativeSelect, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Tooltip, Typography,TableFooter, TablePagination,List,ListItem } from "@mui/material";
+import { AppBar, Avatar, Box, Button, Divider, Drawer, FormControl, IconButton, InputAdornment, ListItemButton, Menu, MenuItem, NativeSelect, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Tooltip, Typography,TableFooter, TablePagination,List,ListItem, Modal, Fade, Backdrop, Card, CardHeader, Checkbox, ListItemText } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import '@fontsource/roboto'
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,7 +12,7 @@ import { useTheme } from "@emotion/react";
 import { fetchItemsData, fetchItemsDetails, setItemDetails } from "./actions/ItemActions";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faDatabase, faEdit, faPaperPlane, faRemove } from "@fortawesome/free-solid-svg-icons";
 const settings=['Profile','Dashboard','Setting','Logout'];
 export default function Items() {
     const [anchorElUser,setAnchorElUser]=React.useState(null);
@@ -108,6 +108,160 @@ export default function Items() {
         dispatch(setItemDetails(item));
         dispatch(fetchItemsDetails(item.code));
     };
+    const [addModalOpen,setAddModalOpen]=React.useState(false);
+    const addModalClose=()=> setAddModalOpen(false);
+    const handleAddModalOpen=()=> setAddModalOpen(true);
+    const [items,setItems]=useState(['Kg','Gram','Ltr','Pack','mm','cm','box','dozen']);
+    const [selectedItem,setSelectedItem]=useState([]);
+    const [selectedMeasure,setSelectedMeasure]=useState(null);
+    const [selectedSelect,setSelectedSelect]=useState(null);
+    const handleTransferLeft=()=>{
+        if(selectedSelect !== null) {
+            setItems([...items, selectedItem[selectedSelect]]);
+            setSelectedItem(selectedItem.filter((_, index)=> index !== selectedSelect));
+            setSelectedSelect(null);
+        }
+    };
+    const handleTransferRight=()=>{
+        if(selectedMeasure !== null) {
+            setSelectedItem([...selectedItem,items[selectedMeasure]]);
+            setItems(items.filter((_, index)=> index !== selectedMeasure));
+            setSelectedMeasure(null);
+        }
+    };
+    const itemsAddModal=(
+        <>
+        <Modal open={addModalOpen}
+            aria-labelledby="add-modal-title"
+            aria-describedby="add-modal-description"
+            onClose={addModalClose}            
+            closeAfterTransition
+            slots={{backdrop : Backdrop}}
+            slotProps={{
+                backdrop : {
+                    timeout : 500,
+                },
+            }}
+            >
+            <Fade in={addModalOpen}>
+                <Box component={Paper} className="addModalStyle"> 
+                    <p className="addModalText">Add Items Module</p>
+                    <TextField className="addModalTextField" variant="outlined" label="Code" helperText="Enter a Item Code" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="HSN CODE" helperText="Enter a HSN CODE" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="IGST" helperText="Type IGST Value" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="SGST" helperText="Type SGST Value" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="CGST" helperText="Type CGST Value" size="small" fullWidth />
+                    <br></br>
+                    <br></br>
+                    <Divider></Divider>
+                    <p className="addModalText">UnitOfMeasurements</p>
+                    <Box sx={{display : 'flex',justifyContent : 'center',gap :'180px'}}>
+                        <p style={{fontWeight : 'bold'}}>Select</p>
+                        <p style={{fontWeight : 'bold'}}>Selected</p>
+                    </Box>
+                    <Box className="addModalContainer">
+                        <Card className="addModalCard">
+                            <List>
+                                {items.map((item,index)=>(
+                                    <ListItem key={index} button selected={selectedMeasure === index} onClick={()=> setSelectedMeasure(index)}>
+                                        <ListItemText>{item}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Card>
+                        <Box className="addModalButtonContainer">
+                            <Button className="transferButton" variant="contained" onClick={handleTransferRight} disabled={selectedMeasure === null}>&gt;</Button>
+                            &nbsp;
+                            <Button className="transferButton" variant="contained" onClick={handleTransferLeft} disabled={selectedSelect === null}>&lt;</Button>
+                        </Box>
+                        <Card className="addModalCard">
+                            <List>
+                                {selectedItem.map((item,index)=>(
+                                    <ListItem key={index} button selected={selectedSelect===index} onClick={()=> setSelectedSelect(index)}>
+                                        <ListItemText>{item}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Card>
+                    </Box>
+                    <Box sx={{display : 'flex',justifyContent : 'right',marginTop : '25px'}}>
+                        <Button variant="contained">Add</Button>
+                        &nbsp;
+                        <Button variant="contained">Cancel</Button>
+                    </Box>
+                </Box>
+            </Fade>
+        </Modal>
+        </>
+    );
+    const [editModalOpen,setEditModalOpen]=React.useState(false);
+    const editModalClose=()=> setEditModalOpen(false);
+    const handleEditModalOpen=()=> setEditModalOpen(true);
+    const itemsEditModal=(
+        <>
+        <Modal open={editModalOpen}
+            aria-labelledby="add-modal-title"
+            aria-describedby="add-modal-description"
+            onClose={editModalClose}            
+            closeAfterTransition
+            slots={{backdrop : Backdrop}}
+            slotProps={{
+                backdrop : {
+                    timeout : 500,
+                },
+            }}
+            >
+            <Fade in={editModalOpen}>
+                <Box component={Paper} className="addModalStyle"> 
+                    <p className="addModalText">Edit Items Module</p>
+                    <TextField className="addModalTextField" variant="outlined" label="Code" helperText="Enter a Item Code" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="HSN CODE" helperText="Enter a HSN CODE" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="IGST" helperText="Type IGST Value" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="SGST" helperText="Type SGST Value" size="small" fullWidth />
+                    <TextField className="addModalTextField" variant="outlined" label="CGST" helperText="Type CGST Value" size="small" fullWidth />
+                    <br></br>
+                    <br></br>
+                    <Divider></Divider>
+                    <p className="addModalText">UnitOfMeasurements</p>
+                    <Box sx={{display : 'flex',justifyContent : 'center',gap :'180px'}}>
+                        <p style={{fontWeight : 'bold'}}>Select</p>
+                        <p style={{fontWeight : 'bold'}}>Selected</p>
+                    </Box>
+                    <Box className="addModalContainer">
+                        <Card className="addModalCard">
+                            <List>
+                                {items.map((item,index)=>(
+                                    <ListItem key={index} button selected={selectedMeasure === index} onClick={()=> setSelectedMeasure(index)}>
+                                        <ListItemText>{item}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Card>
+                        <Box className="addModalButtonContainer">
+                            <Button className="transferButton" variant="contained" onClick={handleTransferRight} disabled={selectedMeasure === null}>&gt;</Button>
+                            &nbsp;
+                            <Button className="transferButton" variant="contained" onClick={handleTransferLeft} disabled={selectedSelect === null}>&lt;</Button>
+                        </Box>
+                        <Card className="addModalCard">
+                            <List>
+                                {selectedItem.map((item,index)=>(
+                                    <ListItem key={index} button selected={selectedSelect===index} onClick={()=> setSelectedSelect(index)}>
+                                        <ListItemText>{item}</ListItemText>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Card>
+                    </Box>
+                    <Box sx={{display : 'flex',justifyContent : 'right',marginTop : '25px'}}>
+                        <Button variant="contained">Update</Button>
+                        &nbsp;
+                        <Button variant="contained">Cancel</Button>
+                    </Box>
+                </Box>
+            </Fade>
+        </Modal>
+        </>
+    );
     const TableData=(
         <TableContainer>
             <Table stickyHeader>
@@ -126,7 +280,7 @@ export default function Items() {
                             <TableCell component="th" scope="row">{row.code}</TableCell>
                             <TableCell>{row.name}</TableCell>
                             <TableCell>{row.hsn_code}</TableCell>
-                            <TableCell><FontAwesomeIcon icon={faEdit} /></TableCell>
+                            <TableCell><FontAwesomeIcon onClick={handleEditModalOpen} icon={faEdit} /></TableCell>
                             <TableCell><FontAwesomeIcon icon={faRemove} /></TableCell>
                         </TableRow>
                     ))}
@@ -194,11 +348,12 @@ export default function Items() {
                         <Typography sx={{fontWeight : 'bold',fontSize : '20pt',fontFamily : 'Roboto'}}>Data Tables</Typography>
                         <Typography sx={{fontFamily : 'Roboto'}}>Dashboard / <a href="#">Data Tables</a></Typography>
                     </Box>                  
-                    
+                    {itemsAddModal}
+                    {itemsEditModal}
                     <Box className="centered-box">
                         <Box className="search-box-inside-main">
                             <TextField placeholder="Search..." size="small" sx={{width : '300px'}}/>
-                            <Typography sx={{marginRight : '40px',fontFamily : 'Roboto',fontSize : '11pt'}} variant="h6">{SelectPage} Entites Per Page</Typography>
+                            <Typography sx={{marginRight : '40px',fontFamily : 'Roboto',fontSize : '20pt'}} ><FontAwesomeIcon onClick={handleAddModalOpen} icon={faCirclePlus} /></Typography>
                         </Box>
                         <Divider sx={{width : '100%'}} />
                         {TableData}
