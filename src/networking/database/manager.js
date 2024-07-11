@@ -187,9 +187,6 @@ class ItemManager {
         if(item.sgst<0) {
             throw "SGST Cannot be negative";
         }
-        if(item.unitOfMeasurements.length==0) {
-            throw "UnitOfMeasurement required";
-        }
         var unitOfMeasurement;
         var connection=await connector.getConnection();
         if(connection==null) {

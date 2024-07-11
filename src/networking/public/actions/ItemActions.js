@@ -28,9 +28,32 @@ export const fetchItemsDetails=(code)=>{
         {
             const response=await axios.get(`http://localhost:8080/getByItemCode?code=${code}`);
             dispatch(setItemDetails(response.data));
-            console.log(response.data);
         }catch(error) {
             console.log(error);
+        }
+    };
+};
+export const addItem=(item)=>{
+    return {
+        type : 'ADD_ITEMS',
+        payload : item,
+    };
+};
+export const addItemData=(item)=>{
+    return async(dispatch)=>{
+        try
+        {
+            const response=await axios.post(
+                'http://localhost:8080/addItems',
+                item,
+                { headers  : {'Content-Type' : 'application/json'} }
+            );
+            dispatch(addItem(response.data));
+            alert(response.data);
+            alert('Added Successfully');
+        }catch(error) {
+            console.log('Some Error Occured',error);
+            alert(error);
         }
     };
 };

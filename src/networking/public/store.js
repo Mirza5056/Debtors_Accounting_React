@@ -9,6 +9,7 @@ const rootReducer=combineReducers({
     states_name : CustomerReducer,
     items : ItemReducers,
     traders : TraderReducer,
+    item : ItemReducers,
 });
 const store=createStore(rootReducer,applyMiddleware(thunk));    
 export default store;

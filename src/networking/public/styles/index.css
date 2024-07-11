@@ -101,6 +101,9 @@
     overflow: scroll;
     height: 450px;
     overflow-x: hidden;
+    background-color: white;
+    flex-direction: column;
+    gap: 20px;
 }
 .addModalText {
     margin-bottom: 20px;

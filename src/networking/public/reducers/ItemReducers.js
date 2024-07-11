@@ -1,6 +1,7 @@
 const initialState={
     itemsList : [],
     itemsDetails : [],
+    addItemList : [],
 };
 const ItemReducers=(state = initialState, action)=>{
     switch(action.type) {
@@ -13,6 +14,11 @@ const ItemReducers=(state = initialState, action)=>{
             return {
                 ...state,
                 itemsDetails : action.payload,
+            };
+        case 'ADD_ITEMS' :
+            return {
+                ...state,
+                addItemList : [...state.addItemList, action.payload],
             };
         default:
             return state;

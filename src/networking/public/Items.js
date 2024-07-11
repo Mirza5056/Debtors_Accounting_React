@@ -9,7 +9,7 @@ import './styles/index.css';
 import rgpvLogo from './images/RGPVLOGO.jfif';
 import { Link, useLocation } from "react-router-dom";
 import { useTheme } from "@emotion/react";
-import { fetchItemsData, fetchItemsDetails, setItemDetails } from "./actions/ItemActions";
+import { addItemData, fetchItemsData, fetchItemsDetails, setItemDetails } from "./actions/ItemActions";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus, faDatabase, faEdit, faPaperPlane, faRemove } from "@fortawesome/free-solid-svg-icons";
@@ -111,7 +111,12 @@ export default function Items() {
     const [addModalOpen,setAddModalOpen]=React.useState(false);
     const addModalClose=()=> setAddModalOpen(false);
     const handleAddModalOpen=()=> setAddModalOpen(true);
-    const [items,setItems]=useState(['Kg','Gram','Ltr','Pack','mm','cm','box','dozen']);
+    const [items,setItems]=useState([
+        {name : 'Kg',code :1},
+        {name : 'Gram', code :2},
+        {name : 'Ltr', code :3},
+        {name : 'Pack', code :4}
+    ]);
     const [selectedItem,setSelectedItem]=useState([]);
     const [selectedMeasure,setSelectedMeasure]=useState(null);
     const [selectedSelect,setSelectedSelect]=useState(null);
@@ -129,6 +134,33 @@ export default function Items() {
             setSelectedMeasure(null);
         }
     };
+    const [name,setName]=useState('');
+    const [hsnCode,setHsnCode]=useState('');
+    const [igst,setIGST]=useState('');
+    const [cgst,setCGST]=useState('');
+    const [sgst,setSGST]=useState('');
+    //const [unitOfMeasurements,setUnitOfMeasurements]=useState([]);
+    const handleAddSubmit=(ev)=>{
+        ev.preventDefault();
+        console.log(selectedItem);
+        if(selectedItem.length === 0) {
+            alert('No data selected');
+            return;
+        }
+        const unitOfMeasurements=selectedItem.map((item)=>({
+            name : item.name,
+            code : item.code
+        }));
+        const item={name, 
+            hsn_code : hsnCode,
+            igst,
+            cgst,
+            sgst,
+            unitOfMeasurements
+        };
+        const data=JSON.stringify(item);
+        dispatch(addItemData(data));
+    };
     const itemsAddModal=(
         <>
         <Modal open={addModalOpen}
@@ -144,13 +176,72 @@ export default function Items() {
             }}
             >
             <Fade in={addModalOpen}>
-                <Box component={Paper} className="addModalStyle"> 
+                <Box component="form" className="addModalStyle" onSubmit={handleAddSubmit}> 
                     <p className="addModalText">Add Items Module</p>
-                    <TextField className="addModalTextField" variant="outlined" label="Code" helperText="Enter a Item Code" size="small" fullWidth />
-                    <TextField className="addModalTextField" variant="outlined" label="HSN CODE" helperText="Enter a HSN CODE" size="small" fullWidth />
-                    <TextField className="addModalTextField" variant="outlined" label="IGST" helperText="Type IGST Value" size="small" fullWidth />
-                    <TextField className="addModalTextField" variant="outlined" label="SGST" helperText="Type SGST Value" size="small" fullWidth />
-                    <TextField className="addModalTextField" variant="outlined" label="CGST" helperText="Type CGST Value" size="small" fullWidth />
+                    <TextField 
+                        className="addModalTextField" 
+                        variant="outlined" 
+                        label="Name" 
+                        helperText="Enter a Name" 
+                        size="small" 
+                        fullWidth 
+                        required
+                        value={name}
+                        onChange={(e)=> setName(e.target.value)}
+                        name="name"
+                        type="text"
+                    />
+                    <TextField 
+                        className="addModalTextField" 
+                        variant="outlined" label="HSN CODE" 
+                        helperText="Enter a HSN CODE" 
+                        size="small" 
+                        fullWidth 
+                        required
+                        name="hsn_code"
+                        type="number"
+                        value={hsnCode}
+                        onChange={(e)=> setHsnCode(e.target.value)}
+                    />
+                    <TextField 
+                        className="addModalTextField" 
+                        variant="outlined" 
+                        label="IGST" 
+                        helperText="Type IGST Value" 
+                        size="small" 
+                        fullWidth 
+                        required
+                        name="igst"
+                        type="number"
+                        value={igst}
+                        onChange={(e)=> setIGST(e.target.value)}
+                    />
+                    <TextField  
+                        className="addModalTextField" 
+                        variant="outlined" 
+                        label="SGST" 
+                        helperText="Type SGST Value" 
+                        size="small" 
+                        fullWidth 
+                        value={sgst}
+                        onChange={(e)=> setSGST(e.target.value)}
+                        required
+                        name="sgst"
+                        type="number"
+                    />
+                    <TextField 
+                        className="addModalTextField" 
+                        variant="outlined" 
+                        label="CGST" 
+                        helperText="Type CGST Value" 
+                        size="small" 
+                        fullWidth 
+                        required
+                        value={cgst}
+                        onChange={(e)=> setCGST(e.target.value)}
+                        name="cgst"
+                        type="number"
+                    />
                     <br></br>
                     <br></br>
                     <Divider></Divider>
@@ -162,9 +253,9 @@ export default function Items() {
                     <Box className="addModalContainer">
                         <Card className="addModalCard">
                             <List>
-                                {items.map((item,index)=>(
-                                    <ListItem key={index} button selected={selectedMeasure === index} onClick={()=> setSelectedMeasure(index)}>
-                                        <ListItemText>{item}</ListItemText>
+                                {items.map((item,code)=>(
+                                    <ListItem key={code} button selected={selectedMeasure === code} onClick={()=> setSelectedMeasure(code)}>
+                                        <ListItemText>{item.name}</ListItemText>
                                     </ListItem>
                                 ))}
                             </List>
@@ -176,18 +267,22 @@ export default function Items() {
                         </Box>
                         <Card className="addModalCard">
                             <List>
-                                {selectedItem.map((item,index)=>(
-                                    <ListItem key={index} button selected={selectedSelect===index} onClick={()=> setSelectedSelect(index)}>
-                                        <ListItemText>{item}</ListItemText>
+                                {selectedItem.map((item,code)=>(
+                                    <ListItem 
+                                     key={code} 
+                                     button 
+                                     selected={selectedSelect===code} 
+                                     onClick={()=> setSelectedSelect(code)} >
+                                        <ListItemText>{item.name}</ListItemText>
                                     </ListItem>
                                 ))}
                             </List>
                         </Card>
                     </Box>
                     <Box sx={{display : 'flex',justifyContent : 'right',marginTop : '25px'}}>
-                        <Button variant="contained">Add</Button>
+                        <Button variant="contained" type="submit">Add</Button>
                         &nbsp;
-                        <Button variant="contained">Cancel</Button>
+                        <Button variant="contained" onClick={addModalClose}>Cancel</Button>
                     </Box>
                 </Box>
             </Fade>
@@ -275,32 +370,19 @@ export default function Items() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {items_data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-                        <TableRow key={row.code} onClick={()=> itemRowButtonGotClicked(row)}>
-                            <TableCell component="th" scope="row">{row.code}</TableCell>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.hsn_code}</TableCell>
+                    {items_data.map((item)=>{
+                        return (
+                            <TableRow key={item.code} onClick={()=> itemRowButtonGotClicked(item)}>
+                            <TableCell component="th" scope="row">{item.code}</TableCell>
+                            <TableCell>{item.name}</TableCell>
+                            <TableCell>{item.hsn_code}</TableCell>
                             <TableCell><FontAwesomeIcon onClick={handleEditModalOpen} icon={faEdit} /></TableCell>
                             <TableCell><FontAwesomeIcon icon={faRemove} /></TableCell>
-                        </TableRow>
-                    ))}
-                    {emptyRows > 0 && (
-                        <TableRow style={{height : 53 * emptyRows}}>
-                            <TableCell colSpan={6}></TableCell>
-                        </TableRow>
-                    )}
+                            </TableRow>
+                        )
+                    })}
                 </TableBody>
                 <TableFooter>
-                    <TableRow>
-                        <TablePagination rowsPerPageOptions={[5,10,15,20,{label : 'All',value : -1}]}
-                        colSpan={4}
-                        count={rows.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handlePageChange}
-                        onRowsPerPageChange={handleChangeRowPerPage}
-                        ActionsComponent={TablePaginationActions} />
-                    </TableRow>
                 </TableFooter>
             </Table>
         </TableContainer>

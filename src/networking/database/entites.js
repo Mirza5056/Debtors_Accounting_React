@@ -19,7 +19,7 @@ class Item {
         this.igst=igst;
         this.cgst=cgst;
         this.sgst=sgst;
-        this.unitOfMeasurements=unitOfMeasurements;
+        this.unitOfMeasurements=unitOfMeasurements || [];
     }
     getItemCode() { return this.item_code; }
     getHSNCode() {
