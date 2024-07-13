@@ -167,9 +167,9 @@ app.listen(port,function(error){
     }
     console.log(`server is ready to accept on port number ${port}`);
     const {exec} =require('child_process');
-    /*exec('npm start',(err,stdout,stdin)=>{
+    exec('npm start',(err,stdout,stdin)=>{
         if(err) { console.log(err); } 
         console.log(`${stdout}`);
         console.log(`${stdin}`);
-    });*/
+    });
 });

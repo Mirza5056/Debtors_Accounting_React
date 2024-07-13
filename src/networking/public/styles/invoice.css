@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+.invoice-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(203,214,226,255);
+    height: 100vh;
+    position: relative;
+}
+.inside-invoice-container {
+    width: 29.5cm;
+    margin-top: 2cm;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 527px;
+    display: flex;
+    margin-left: 5.8cm;
+    flex-direction: column;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.invoice-text {
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    padding: 0.9rem;
+}
+.invoice-top-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.invoice-fonts {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem;
+    width: 13%;
+}
+.trader-detail {
+    display: flex;
+    width: 500px;
+    height: auto;
+    margin-top: 0.7rem;
+    margin-left: auto;
+    flex-direction: column;
+    padding: 1rem;
+    margin-right: 10px;
+}
+.traders {
+    text-align: right;
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    padding: 0.9rem;
+}
+.invoice-details {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid red;
+}
+.rightSideInvoice {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-right: 30px;
+}
+.item-table-top-section {
+    display: flex;
+    justify-content: space-between;
+}
+.items-table {
+    border:  1px solid red;
+}
+.bank-details-section {
+    margin: 0 auto;
+    flex-direction: row;
+    width: 400px;
+    justify-content: space-between;
+    margin-right: 30px;
+}
+.bank-text {
+    text-align: right;
+    font-family: "Roboto Slab", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    padding: 0.9rem;
+    margin-left: 196px;
+}
