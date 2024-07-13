@@ -10,7 +10,51 @@ class UnitOfMeasurement {
         return this.name;
     }
 }
-class Item {
+class Item
+{
+constructor(code,name,hsn_code,item_code,cgst,sgst,igst,unitOfMeasurements) {
+this.code=code;
+this.name=name;
+this.hsn_code=hsn_code;
+this.cgst=cgst;
+this.sgst=sgst;
+this.igst=igst;
+this.item_code=item_code;
+this.unitOfMeasurements=unitOfMeasurements || [];
+}
+getItemCode() {
+    return this.item_code;
+}
+getCode()
+{
+return this.code;
+}
+getName()
+{
+return this.name;
+}
+getHSNCode()
+{
+    return this.hsn_code;
+}
+getCGST()
+{
+return this.cgst;
+}
+getSGST()
+{
+return this.sgst;
+}
+getIGST()
+{
+return this.igst;
+}
+getUnitOfMeasurements()
+{
+return this.unitOfMeasurements;
+}
+} 
+/*class Item {
     constructor(code,name,hsn_code,item_code,cgst,igst,sgst,unitOfMeasurements) {
         this.code=code;
         this.name=name;
@@ -43,7 +87,7 @@ class Item {
     getUnitOfMeasurements() {
         return this.unitOfMeasurements;
     }
-}
+}*/
 class ItemData {
     constructor(code,name,hsn_code,itemCode,cgst,igst,sgst,unitOfMeasurements) {
         this.code=code;

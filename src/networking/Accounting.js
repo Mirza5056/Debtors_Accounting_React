@@ -11,6 +11,7 @@ app.use(express.static('public'));
 const { stdout, stdin } = require('process');
 app.get('/',function(request,response){
     response.redirect('/index.js');
+    console.log('starts');
 });
 app.get('/getCustomer',async function(request,response){
     try
@@ -129,9 +130,36 @@ app.post('/addItems',async function(request,response){
     }
 });
 
-app.post('/getsys',function(request,response){
-    var name=request.body.name;
-    console.log(name);
+app.post('/updateTraders',async function(request,response){
+    console.log(request.body);
+    try
+    {
+        console.log('starts');
+        var traderUpdate=request.body;
+        var code=traderUpdate.code;
+        var name=traderUpdate.name;
+        var address=traderUpdate.address;
+        var gst_num=traderUpdate.gst_num;
+        var reg_title_1=traderUpdate.reg_title_1;
+        var reg_value_1=traderUpdate.reg_value_1;
+        var contact_1=traderUpdate.contact_1;
+        var contact_2=traderUpdate.contact_2;
+        var contact_3=traderUpdate.contact_3;
+        var bank_custom_name=traderUpdate.bank_custom_name;
+        var account_number=traderUpdate.account_number;
+        var ifsc_code=traderUpdate.ifsc_code;
+        var branch_name=traderUpdate.branch_name;
+        var state_code=traderUpdate.state_code;
+        var item=new entites.Trader(code,name,address,gst_num,reg_title_1,reg_value_1,contact_1,contact_2,contact_3,bank_custom_name,account_number,ifsc_code,branch_name,state_code);
+        var manager=new managers.TraderManager();
+        var traders=await manager.update(item);
+        response.send(traders);
+        console.log(code,name);
+        response.status(200).send({message : 'Trader Updated Successfully'});
+        console.log('ends successfully');
+    }catch(error) {
+        console.log(error);
+    }
 });
 app.listen(port,function(error){
     if(error) {
@@ -139,9 +167,9 @@ app.listen(port,function(error){
     }
     console.log(`server is ready to accept on port number ${port}`);
     const {exec} =require('child_process');
-    exec('npm start',(err,stdout,stdin)=>{
+    /*exec('npm start',(err,stdout,stdin)=>{
         if(err) { console.log(err); } 
         console.log(`${stdout}`);
         console.log(`${stdin}`);
-    });
+    });*/
 });

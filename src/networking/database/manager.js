@@ -1,4 +1,3 @@
-const { connectionClass, oracleClientVersion } = require('oracledb');
 const connector=require('./connector');
 const entites=require('./entites');
 class UnitOfMeasurementManager {
@@ -162,7 +161,7 @@ class UnitOfMeasurementManager {
 class ItemManager {
     constructor() {
     }
-    async add(item) {
+    /*async add(item) {
         if(!item.name || item.name.length==0) {
             throw "Item Name Required";
         }
@@ -231,14 +230,121 @@ class ItemManager {
         await connection.commit();
         resultSet=await connection.execute(`select code from ac_item where lower(name)=lower('${item.name}')`);
         item.code=resultSet.rows[0][0]
-        await connection.execute(`insert into ac_item_tax values(${item.code},${item.cgst},${item.sgst},${item.igst})`);
+        //await connection.execute(`insert into ac_item_tax values(${item.code},${item.cgst},${item.sgst},${item.igst})`);
+        await connection.execute(
+            `INSERT INTO ac_item_tax (item_code, cgst, sgst, igst) VALUES (:item_code, :cgst, :sgst, :igst)`,
+            { item_code: item.code, cgst: item.cgst, sgst: item.sgst, igst: item.igst }
+        );
         await connection.commit();
         for(var i=0; i<item.unitOfMeasurements.length; i++) {
             await connection.execute(`insert into ac_item_uom values(${item.code},${item.unitOfMeasurements[i].code})`);
             await connection.commit();
         }
         await connection.close();
-    }
+    }*/
+
+        async add(item)
+{
+if(!item.name || item.name.length==0)
+{
+throw "Item name required";
+}
+if(item.name.length>25)
+{
+throw "Name cannot exceed 25 characters";
+}
+if(!item.hsn_code)
+{
+    throw "HSN Code required";
+}
+if(!item.cgst)
+{
+item.cgst=0;
+}
+if(item.cgst<0)
+{
+throw "CGST cannot be negative";
+}
+if(!item.sgst)
+{
+item.sgst=0;
+}
+if(item.sgst<0)
+{
+throw "SGST cannot be negative";
+}
+if(!item.igst)
+{
+item.igst=0;
+}
+if(item.igst<0)
+{
+throw "IGST cannot be negative";
+}
+var connection=await connector.getConnection();
+if(connection==null)
+{
+throw "Unable to connect to database";
+}
+var resultSet;
+resultSet=await connection.execute(`select name from ac_item where lower(name)=lower('${item.name}')`);
+if(resultSet.rows.length>0)
+{
+await connection.close();
+throw `${item.name} exists`;
+}
+resultSet=await connection.execute(`select hsn_code from ac_item where hsn_code=${item.hsn_code}`);
+if(resultSet.rows.length > 0) {
+    await connection.close();
+    throw `${item.hsn_code} exists.`
+}
+var unitOfMeasurement;
+var i;
+for(i=0;i<item.unitOfMeasurements.length;i++)
+{
+unitOfMeasurement=item.unitOfMeasurements[i];
+
+if(!unitOfMeasurement.code || unitOfMeasurement.code<0)
+{
+unitOfMeasurement.code=0;
+}
+if(!unitOfMeasurement.name || unitOfMeasurement.name.length==0)
+{
+await connection.close();
+throw "Unit of measurement name required";
+}
+if(unitOfMeasurement.name.length>5)
+{
+await connection.close();
+throw "Unit of measurement cannot exceed 5 character";
+}
+resultSet=await connection.execute(`select code from ac_uom where lower(name)=lower('${unitOfMeasurement.name}')`);
+if(resultSet.rows.length>0)
+{
+unitOfMeasurement.code=resultSet.rows[0][0];
+}
+else
+{
+await connection.execute(`insert into ac_uom (name) values ('${unitOfMeasurement.name}')`);
+await connection.commit();
+resultSet=await connection.execute(`select code from ac_uom where lower(name)=lower('${unitOfMeasurement.name}')`);
+unitOfMeasurement.code=resultSet.rows[0][0];
+}
+} // for loop ends here
+await connection.execute(`insert into ac_item (name,hsn_code) values('${item.name}',${item.hsn_code})`);
+await connection.commit();
+resultSet=await connection.execute(`select code from ac_item where lower(name)=lower('${item.name}')`);
+item.code=resultSet.rows[0][0];
+await connection.execute(`insert into ac_item_tax values(${item.code},${item.cgst},${item.sgst},${item.igst})`);
+await connection.commit();	
+for(var i=0;i<item.unitOfMeasurements.length;i++)
+{
+await connection.execute(`insert into ac_item_uom values(${item.code},${item.unitOfMeasurements[i].code})`);
+await connection.commit();
+}
+await connection.close(); 
+} // item add function ends here
+
     async getAllItem() {
         var connection=await connector.getConnection();
         if(connection==null) {
@@ -267,8 +373,7 @@ class ItemManager {
         }
         var items=[];
         try {
-            var resultSet = await connection.execute(`SELECT 
-            ii.code AS code,
+            var resultSet = await connection.execute(`SELECT ii.code AS code,
             ii.name AS name,
             ii.hsn_code as hsn_code,
             it.item_code AS itemCode,
@@ -483,6 +588,7 @@ class TraderManager {
         await connection.close();
         return traders;    
     }
+    /*
     async update(trader) {
         if(trader.code <= 0) {
             throw "Code is required to update";
@@ -538,6 +644,83 @@ class TraderManager {
             await connection.close();
         }catch(error) {
             throw error;
+        }
+    }
+        */
+    async update(trader) {
+        if (trader.code <= 0) {
+            throw new Error("Code is required to update");
+        }
+        if (!trader.name) {
+            throw new Error("Name is required");
+        }
+        
+        let connection;
+        try {
+            connection = await connector.getConnection();
+            if (!connection) {
+                throw new Error("Failed to establish a database connection.");
+            }
+    
+            const selectQuery = `SELECT code FROM ac_trader WHERE code = :code`;
+            const selectResult = await connection.execute(selectQuery, { code: trader.code });
+    
+            if (selectResult.rows.length === 0) {
+                throw new Error(`Accounting Id ${trader.code} Does Not Exist.`);
+            }
+    
+            const updateQuery = `
+                UPDATE ac_trader 
+                SET 
+                    name = :name,
+                    address = :address,
+                    gst_num = :gst_num,
+                    reg_title_1 = :reg_title_1,
+                    reg_value_1 = :reg_value_1,
+                    contact_1 = :contact_1,
+                    contact_2 = :contact_2,
+                    contact_3 = :contact_3,
+                    bank_custom_name = :bank_custom_name,
+                    account_number = :account_number,
+                    branch_name = :branch_name,
+                    ifsc_code = :ifsc_code,
+                    state_code = :state_code
+                WHERE 
+                    code = :code
+            `;
+            
+            const binds = {
+                name: trader.name,
+                address: trader.address,
+                gst_num: trader.gst_num,
+                reg_title_1: trader.reg_title_1 !== null ? trader.reg_title_1 : null,
+                reg_value_1: trader.reg_value_1 !== null ? trader.reg_value_1 : null,
+                contact_1: trader.contact_1 !== null ? trader.contact_1 : null,
+                contact_2: trader.contact_2 !== null ? trader.contact_2 : null,
+                contact_3: trader.contact_3 !== null ? trader.contact_3 : null,
+                bank_custom_name: trader.bank_custom_name,
+                account_number: trader.account_number,
+                branch_name: trader.branch_name,
+                ifsc_code: trader.ifsc_code,
+                state_code: trader.state_code,
+                code: trader.code
+            };
+    
+            const updateResult = await connection.execute(updateQuery, binds, { autoCommit: true });
+    
+            console.log(`Rows updated: ${updateResult.rowsAffected}`);
+            
+        } catch (error) {
+            console.error('Error during update operation:', error);
+            throw error;
+        } finally {
+            if (connection) {
+                try {
+                    await connection.close();
+                } catch (closeError) {
+                    console.error('Error closing the connection:', closeError);
+                }
+            }
         }
     }
 }

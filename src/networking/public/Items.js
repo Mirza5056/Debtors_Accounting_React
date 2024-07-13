@@ -1,10 +1,11 @@
-import { AppBar, Avatar, Box, Button, Divider, Drawer, FormControl, IconButton, InputAdornment, ListItemButton, Menu, MenuItem, NativeSelect, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Tooltip, Typography,TableFooter, TablePagination,List,ListItem, Modal, Fade, Backdrop, Card, CardHeader, Checkbox, ListItemText } from "@mui/material";
+import { AppBar, Avatar, Box, Button, Divider, Drawer, FormControl, IconButton, InputAdornment, ListItemButton, Menu, MenuItem, NativeSelect, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Toolbar, Tooltip, Typography,TableFooter, TablePagination,List,ListItem, Modal, Fade, Backdrop, Card, CardHeader, Checkbox, ListItemText, Snackbar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import '@fontsource/roboto'
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationIcon from '@mui/icons-material/Notifications';
 import MailIcon from '@mui/icons-material/Mail';
+import CloseIcon from '@mui/icons-material/Close';
 import './styles/index.css';
 import rgpvLogo from './images/RGPVLOGO.jfif';
 import { Link, useLocation } from "react-router-dom";
@@ -134,12 +135,26 @@ export default function Items() {
             setSelectedMeasure(null);
         }
     };
+    const [open,setOpen]=React.useState(false);
+    const handleClose=()=>{
+        setOpen(false);
+    }
+    const action=(
+        <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>UNDO</Button>
+            <IconButton size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}>
+                <CloseIcon fontSize="small" />
+            </IconButton>
+        </React.Fragment>
+    );
     const [name,setName]=useState('');
     const [hsnCode,setHsnCode]=useState('');
     const [igst,setIGST]=useState('');
     const [cgst,setCGST]=useState('');
     const [sgst,setSGST]=useState('');
-    //const [unitOfMeasurements,setUnitOfMeasurements]=useState([]);
     const handleAddSubmit=(ev)=>{
         ev.preventDefault();
         console.log(selectedItem);
@@ -160,6 +175,13 @@ export default function Items() {
         };
         const data=JSON.stringify(item);
         dispatch(addItemData(data));
+        setName('');
+        setHsnCode('');
+        setIGST('');
+        setSGST('');
+        setCGST('');
+        addModalClose();
+        setOpen(true);
     };
     const itemsAddModal=(
         <>
@@ -362,22 +384,24 @@ export default function Items() {
             <Table stickyHeader>
                 <TableHead>
                     <TableRow>
-                        <TableCell sx={{fontWeight : 'bold',fontSize : '11pt'}}>S.No</TableCell>
-                        <TableCell sx={{fontWeight : 'bold',fontSize : '11pt'}}>Name</TableCell>
-                        <TableCell sx={{fontWeight : 'bold',fontSize : '11pt'}}>HSN_CODE</TableCell>
-                        <TableCell sx={{fontWeight : 'bold',fontSize : '11pt'}}>Edit</TableCell>
-                        <TableCell sx={{fontWeight : 'bold',fontSize : '11pt'}}>Delete</TableCell>
+                        <TableCell sx={{fontWeight : 600,fontSize : '13pt'}}>S.No</TableCell>
+                        <TableCell sx={{fontWeight : 600,fontSize : '13pt'}}>Item-Code</TableCell>
+                        <TableCell sx={{fontWeight : 600,fontSize : '13pt'}}>Name</TableCell>
+                        <TableCell sx={{fontWeight : 600,fontSize : '13pt'}}>HSN_CODE</TableCell>
+                        <TableCell sx={{fontWeight : 600,fontSize : '13pt'}}>Edit</TableCell>
+                        <TableCell sx={{fontWeight : 600,fontSize : '13pt'}}>Delete</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {items_data.map((item)=>{
+                    {items_data.map((item,index)=>{
                         return (
                             <TableRow key={item.code} onClick={()=> itemRowButtonGotClicked(item)}>
-                            <TableCell component="th" scope="row">{item.code}</TableCell>
-                            <TableCell>{item.name}</TableCell>
-                            <TableCell>{item.hsn_code}</TableCell>
-                            <TableCell><FontAwesomeIcon onClick={handleEditModalOpen} icon={faEdit} /></TableCell>
-                            <TableCell><FontAwesomeIcon icon={faRemove} /></TableCell>
+                                <TableCell sx={{fontSize : '15px'}} component="th" scope="row">{index+1}</TableCell>
+                                <TableCell sx={{fontSize : '15px'}}>{item.item_code}</TableCell>
+                                <TableCell sx={{fontSize : '15px'}}>{item.name}</TableCell>
+                                <TableCell sx={{fontSize : '15px'}}>{item.hsn_code}</TableCell>
+                                <TableCell sx={{fontSize : '15px'}}><FontAwesomeIcon onClick={handleEditModalOpen} icon={faEdit} /></TableCell>
+                                <TableCell sx={{fontSize : '15px'}}><FontAwesomeIcon icon={faRemove} /></TableCell>
                             </TableRow>
                         )
                     })}
@@ -432,6 +456,12 @@ export default function Items() {
                     </Box>                  
                     {itemsAddModal}
                     {itemsEditModal}
+                    <Snackbar 
+                        autoHideDuration={6000}
+                        message="Note"
+                        action={action}
+                        sx={{zIndex : 999}}
+                    />
                     <Box className="centered-box">
                         <Box className="search-box-inside-main">
                             <TextField placeholder="Search..." size="small" sx={{width : '300px'}}/>

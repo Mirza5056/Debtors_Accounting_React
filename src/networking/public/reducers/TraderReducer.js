@@ -1,5 +1,6 @@
 const initialState={
     traderList : [],
+    traderDataList : [],
 };
 const TraderReducer=(state = initialState,action)=>{
     switch(action.type) {
@@ -8,6 +9,11 @@ const TraderReducer=(state = initialState,action)=>{
                 ...state,
                 traderList : action.payload,
             }; 
+        case 'ADD_TRADERS':
+            return {
+                ...state,
+                traderDataList : [...state.traderDataList, action.payload],
+            };
         default :
             return state;
     };
