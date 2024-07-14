@@ -47,6 +47,7 @@
     flex-direction: column;
     padding: 1rem;
     margin-right: 10px;
+    padding-bottom: 1.5rem;
 }
 .traders {
     text-align: right;
@@ -60,22 +61,21 @@
 .invoice-details {
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
 }
 .rightSideInvoice {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     margin-right: 30px;
+    padding-bottom: 1.8rem;
 }
 .item-table-top-section {
     display: flex;
     justify-content: space-between;
 }
-.items-table {
-    border:  1px solid red;
-}
 .bank-details-section {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
     margin: 0 auto;
     flex-direction: row;
     width: 400px;
