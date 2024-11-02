@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&family=Rubik+Wet+Paint&display=swap');
+
+/* Light Mode Colors */
+:root {
+    --background-color-main: #ffffff; /* Main background color */
+    --background-text-color: #000000; /* Text color for backgrounds */
+    --app-bar-bg-color: #ffffff;      /* AppBar background color */
+    --app-bar-text-color: #000000;    /* AppBar text color */
+    --icon-color: #000000;            /* Icon color */
+    --drawer-bg-color: #ffffff;       /* Drawer background color */
+    --drawer-text-color: #000000;     /* Drawer text color */
+    --primary-text-color: #000000;    /* Primary text color */
+    --secondary-text-color: #333333;  /* Secondary text color */
+}
+
+/* Dark Mode Colors */
+body.dark-mode {
+    --background-color-main: #000000; /* Dark mode main background color */
+    --background-text-color: #ffffff; /* Dark mode text color */
+    --app-bar-bg-color: #000000;      /* AppBar background color in dark mode */
+    --app-bar-text-color: #1e90ff;    /* Blue shade for AppBar text in dark mode */
+    --icon-color: #1e90ff;            /* Icon color in dark mode */
+    --drawer-bg-color: #000000;       /* Drawer background color in dark mode */
+    --drawer-text-color: #ffffff;     /* Drawer text color in dark mode */
+    --primary-text-color: #ffffff;    /* Primary text color in dark mode */
+    --secondary-text-color: #87ceeb;  /* Lighter blue for secondary text in dark mode */
+}
+
+/* Global Container */
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color-main); /* Main background color based on mode */
+    color: var(--background-text-color);             /* Text color based on mode */
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* AppBar Styles */
+.app-bar {
+    border: 0.5px solid rgb(224, 214, 214);
+    background-color: var(--app-bar-bg-color);       /* AppBar background color */
+    color: var(--app-bar-text-color);                /* AppBar text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Drawer Styles */
+.drawer-collapsed .MuiDrawer-paper,
+.drawer-expanded .MuiDrawer-paper {
+    background-color: var(--drawer-bg-color);        /* Drawer background color */
+    color: var(--drawer-text-color);                 /* Drawer text color */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Drawer Item Styles */
+.drawer-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--background-color-main);
+    color: var(--background-text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1rem;
+}
+ @media (max-width : 425px) {
+    .drawer-item {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+ }
+
+
+/* Drawer Icon Adjustment */
+.drawer-item .MuiSvgIcon-root {
+    margin-right: 10px; /* Adjusted spacing for icons */
+    transition: opacity 0.3s ease;
+}
+
+/* Drawer Text Visibility (Expanded/Collapsed) */
+.drawer-expanded .drawer-text {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.drawer-collapsed .drawer-text {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.drawer-link {
+    text-decoration: none;
+    color: inherit; /* Keep color consistent with theme */
+}
+
+.drawer-link:hover .drawer-item {
+    color: #d3b3b3; /* Changes color on hover */
+}
+
+
+
+/* Typography Style for 'Rubik Wet Paint' Font */
+.app-bar-style {
+    font-family: "Rubik Wet Paint", system-ui;
+    font-weight: 450;
+    font-style: normal;
+    font-size: 2.5rem;
+    margin-left: 1rem;
+    letter-spacing: 0.2rem;
+}
+
+@media (max-width : 768px) {
+    .app-bar-style {
+        font-size: 1.8rem; /* For Tablet Size */
+    }
+}
+
+@media (max-width : 480px) {
+    .app-bar-style {
+        font-size: 1.5rem;
+        letter-spacing: 0.1rem;
+    }
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 4rem;
+    margin-top: 5rem;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 0.75rem;                             /* Less padding for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 0.5rem;                              /* Minimal padding for mobile */
+    }
+}
+
+/* For Responsive Operations */
+@media (max-width : 768px) {
+    .drawer-collapsed .MuiDrawer-paper,
+    .drawer-expanded .MuiDrawer-paper {
+        width: 200px;
+    }
+}
+

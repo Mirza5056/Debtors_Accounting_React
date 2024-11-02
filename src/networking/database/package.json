@@ -12,6 +12,6 @@
   "dependencies": {
     "express": "^4.19.2",
     "node": "^18.20.4",
-    "oracledb": "^6.5.1"
+    "oracledb": "^6.6.0"
   }
 }

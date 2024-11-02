@@ -1,0 +1,18 @@
+@media (max-width : 768px) {
+    .footer {
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+        padding: 0.1rem;
+        float: right;
+    }
+}
+
+@media (max-width : 425px) {
+    .footer {
+        display: flex;
+        font-size: 1rem;
+        letter-spacing: 0.1rem;
+        padding: 0.1rem;
+        float: right;
+    }
+}

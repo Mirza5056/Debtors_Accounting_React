@@ -12,7 +12,7 @@ export const fetchTraders=()=>{
             const response=await axios.get('http://localhost:8080/getTraders');
             dispatch(setTrader(response.data));
         }catch(error) {
-            alert('Some Error Occured',error);
+            //alert('Some Error Occured',error);
             console.log('Some Error Occured',error);
         }
     };
@@ -36,11 +36,10 @@ export const addTraderData=(trader)=>{
                 }
             );
             dispatch(setTraderData(response.data));
-            alert(response.data);
-            console.log(response.data);
+            return response.data;
         }catch(error) {
             console.log("Some Problem Occured",error);
-            alert(error);
+            return {success : false, message : error.response?.data.message || "An error occured."};
         }
     };
 };

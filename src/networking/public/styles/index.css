@@ -1,3 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Light and Dark Mode Color Variables */
+:root {
+    --background-color-light: #f5f5f5;
+    --text-color-light: #333;
+    --table-header-bg-light: #ddd;
+    --table-row-bg-light: #fff;
+    --table-hover-bg-light: #f0f0f0;
+    --search-bar-bg-light: #e0e0e0;
+    --icon-color-light: #555;
+
+    --background-color-dark: #1e1e1e;
+    --text-color-dark: #e0e0e0;
+    --table-header-bg-dark: #444;
+    --table-row-bg-dark: #333;
+    --table-hover-bg-dark: #555;
+    --search-bar-bg-dark: #2c2c2c;
+    --icon-color-dark: #bbb;
+}
+
+/* Switching colors for light and dark modes */
+body.light-mode {
+    --background-color: var(--background-color-light);
+    --text-color: var(--text-color-light);
+    --table-header-bg: var(--table-header-bg-light);
+    --table-row-bg: var(--table-row-bg-light);
+    --table-hover-bg: var(--table-hover-bg-light);
+    --search-bar-bg: var(--search-bar-bg-light);
+    --icon-color: var(--icon-color-light);
+}
+
+body.dark-mode {
+    --background-color: var(--background-color-dark);
+    --text-color: var(--text-color-dark);
+    --table-header-bg: var(--table-header-bg-dark);
+    --table-row-bg: var(--table-row-bg-dark);
+    --table-hover-bg: var(--table-hover-bg-dark);
+    --search-bar-bg: var(--search-bar-bg-dark);
+    --icon-color: var(--icon-color-dark);
+}
+
 .drawer {
     width: 5.5cm;
     display: flex;
@@ -5,15 +47,21 @@
     height: 100%;
     background-color: rgb(28, 36, 52);
 }
+
 .mainToolBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: white;
 }
-.searchIconMainBox { display: flex; align-items: center; }
+
+.searchIconMainBox {
+    display: flex;
+    align-items: center;
+}
+
 .mainBack {
-    background-color: rgba(203,214,226,255);
+    background-color: rgba(203, 214, 226, 255);
     height: 140vh;
     width: 100%;
     justify-items: center;
@@ -22,16 +70,18 @@
     overflow-x: hidden;
     overflow-y: hidden;
 }
+
 .centered-box {
     background-color: white;
     width: 29.5cm;
-    display:  flex;
+    display: flex;
     height: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 7px;
     margin-left: 5.8cm;
     flex-direction: column;
 }
+
 .search-box-inside-main {
     justify-content: space-between;
     display: flex;
@@ -41,6 +91,7 @@
     margin-left: 20px;
     margin-bottom: 20px;
 }
+
 .title-main-box {
     display: flex;
     align-items: center;
@@ -50,49 +101,89 @@
     margin-left: 5.8cm;
     margin-bottom: 0.3cm;
 }
+
 .avatar_section {
     display: flex;
     align-items: center;
     font-size: 20px;
     margin-top: 10px;
 }
-.kamranAkthar { color: black; font-size: 10px; }
+
+.kamranAkthar {
+    color: black;
+    font-size: 10px;
+}
+
 .uxDesigner {
     color: red;
     text-align: center;
     font-size: 10px;
 }
-.avatarIcon { font-size: 30pt; }
-.searchIconMain { margin-top: 20px; margin-right: 10px; }
-.detailed-box {
-    margin-top: auto;
-    width: 29.5cm;
-    display: flex;
-    background-color: white;
-    height: 180px;
-    margin-left: 5.8cm;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+.avatarIcon {
+    font-size: 30pt;
 }
-.left-section { flex-grow: 1; }
-.right-section { flex-grow: 1; }
+
+.searchIconMain {
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.detailed-box {
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background-color: var(--background-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.left-section {
+    flex-grow: 1;
+}
+
+.right-section {
+    flex-grow: 1;
+}
+
 .items-data {
     text-align: center;
     background-color: black;
     color: orange;
 }
-.unitOfMeasurements { text-align: center; background-color: orange; }
-.items-data-details { margin-left: 30px;margin-top: 10px; }
-.unitofmeasurements-details { margin-top: 50px;text-align: center;}
+
+.unitOfMeasurements {
+    text-align: center;
+    background-color: orange;
+}
+
+.items-data-details {
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+.unitofmeasurements-details {
+    margin-top: 50px;
+    text-align: center;
+}
+
 .item_details_left {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
+
+.left {
+    display: flex;
+    flex-grow: 1;
+}
+
 .addModalStyle {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     width: 400px;
     border: 2px solid #000;
     box-shadow: 24px;
@@ -104,42 +195,184 @@
     background-color: white;
     flex-direction: column;
     gap: 20px;
+    background-color: var(--background-color);
 }
+
 .addModalText {
     margin-bottom: 20px;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
 }
+
 .addModalTextField {
     margin-bottom: 24px;
+    color: var(--text-color-dark);
 }
+
 .addModalContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
 }
+
 .addModalCard {
     width: 500px;
     margin: 16px;
     height: 200px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: white;
-    overflow-y: auto;
+    overflow: scroll;
 }
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: var(--search-bar-bg);
+    width: 100%;
+}
+
+.search-bar .MuiInputBase-root {
+    color: var(--text-color);
+}
+
+.search-bar input {
+    background-color: transparent;
+    color: var(--text-color);
+    border: none;
+    outline: none;
+}
+
+
 .addModalHeader {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
 }
+
 .addModalButtonContainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .transferButton {
     margin: 8px 0;
+}
+
+.table-section {
+    display: flex;
+    margin-left: 5cm;
+    margin-top: 5rem;
+    margin-right: 3rem;
+    background-color: var(--background-color-main);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.uom-text {
+    text-align: center;
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+}
+
+/* General Table Container Style */
+.table-container {
+    padding: 0.7rem;
+    margin: 20px auto;
+    height: 55vh;
+    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    background-color: var(--background-color);
+    transition: background-color 0.3s, color 0.3s;
+    margin-top: 3cm;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Header Row Style */
+.table-header-row {
+    background-color: var(--table-header-bg-color);
+    color: var(--table-header-text-color);
+}
+
+/* Header Cell Style */
+.table-header-cell {
+    background-color: var(--table-header-bg);
+    color: var(--text-color);
+    font-weight: 700;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-text-color);
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    padding: 12px 16px;
+}
+
+/* Body Row Style */
+.table-body-row {
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.table-body-row:hover {
+    background-color: var(--table-row-hover-bg-color);
+}
+
+/* Body Cell Style */
+.table-body-cell {
+    padding: 0.5rem;
+    font-weight: 400;
+    padding: 12px 16px;
+    color: var(--table-row-bg);
+    color: var(--text-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+.table-body-cell:hover {
+    background-color: var(--table-hover-bg);
+    cursor: pointer;
+}
+
+/* Icon Style */
+.icon {
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px;
+    color: var(--icon-color);
+    transition: color 0.3s;
+}
+
+input[type="checkbox"] {
+    cursor: pointer;
+}
+
+.edit-icon {
+    color: var(--edit-icon-color);
+}
+
+.delete-icon {
+    color: var(--delete-icon-color);
+}
+
+@media (max-width : 768px) {
+
+    .table-header-cell,
+    .table-body-cell {
+        padding: 0.3rem;
+    }
 }

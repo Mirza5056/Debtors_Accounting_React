@@ -1,59 +1,55 @@
 import axios from "axios";
-export const setItems=(items)=>{
+export const setItems = (items) => {
     return {
-        type : 'GET_ITEMS_DATA',
-        payload : items,
+        type: 'GET_ITEMS_DATA',
+        payload: items,
     };
 };
-export const fetchItemsData=()=>{
-    return async(dispatch)=>{
-        try
-        {
-            const response=await axios.get('http://localhost:8080/getItems');
+export const fetchItemsData = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get('http://localhost:8080/getItems');
             dispatch(setItems(response.data));
-        }catch(error) {
-            alert('Some Internal Error',error);
+        } catch (error) {
+            //alert('Some Internal Error',error);
         }
     };
 };
-export const setItemDetails=(items)=>{
+export const setItemDetails = (items) => {
     return {
-        type : 'SET_ITEMS_DETAILS',
-        payload : items,
+        type: 'SET_ITEMS_DETAILS',
+        payload: items,
     };
 };
-export const fetchItemsDetails=(code)=>{
-    return async(dispatch)=>{
-        try
-        {
-            const response=await axios.get(`http://localhost:8080/getByItemCode?code=${code}`);
+export const fetchItemsDetails = (code) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/getByItemCode?code=${code}`);
             dispatch(setItemDetails(response.data));
-        }catch(error) {
+        } catch (error) {
             console.log(error);
         }
     };
 };
-export const addItem=(item)=>{
+export const addItem = (item) => {
     return {
-        type : 'ADD_ITEMS',
-        payload : item,
+        type: 'ADD_ITEMS',
+        payload: item,
     };
 };
-export const addItemData=(item)=>{
-    return async(dispatch)=>{
-        try
-        {
-            const response=await axios.post(
+export const addItemData = (item) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post(
                 'http://localhost:8080/addItems',
                 item,
-                { headers  : {'Content-Type' : 'application/json'} }
+                { headers: { 'Content-Type': 'application/json' } }
             );
             dispatch(addItem(response.data));
-            alert(response.data);
-            alert('Added Successfully');
-        }catch(error) {
-            console.log('Some Error Occured',error);
-            alert(error);
+            return response.data;
+        } catch (error) {
+            console.log('Some Error Occured', error);
+            return { success: false, message: error.response?.data.message || "An error occured." };
         }
     };
 };

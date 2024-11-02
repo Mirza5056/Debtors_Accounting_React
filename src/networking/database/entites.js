@@ -1,7 +1,7 @@
 class UnitOfMeasurement {
-    constructor(code,name) {
-        this.code=code;
-        this.name=name;
+    constructor(code, name) {
+        this.code = code;
+        this.name = name;
     }
     getCode() {
         return this.code;
@@ -10,125 +10,44 @@ class UnitOfMeasurement {
         return this.name;
     }
 }
-class Item
-{
-constructor(code,name,hsn_code,item_code,cgst,sgst,igst,unitOfMeasurements) {
-this.code=code;
-this.name=name;
-this.hsn_code=hsn_code;
-this.cgst=cgst;
-this.sgst=sgst;
-this.igst=igst;
-this.item_code=item_code;
-this.unitOfMeasurements=unitOfMeasurements || [];
-}
-getItemCode() {
-    return this.item_code;
-}
-getCode()
-{
-return this.code;
-}
-getName()
-{
-return this.name;
-}
-getHSNCode()
-{
-    return this.hsn_code;
-}
-getCGST()
-{
-return this.cgst;
-}
-getSGST()
-{
-return this.sgst;
-}
-getIGST()
-{
-return this.igst;
-}
-getUnitOfMeasurements()
-{
-return this.unitOfMeasurements;
-}
-} 
-/*class Item {
-    constructor(code,name,hsn_code,item_code,cgst,igst,sgst,unitOfMeasurements) {
-        this.code=code;
-        this.name=name;
-        this.hsn_code=hsn_code;
-        this.item_code=item_code;
-        this.igst=igst;
-        this.cgst=cgst;
-        this.sgst=sgst;
-        this.unitOfMeasurements=unitOfMeasurements || [];
+class Item {
+    constructor(code, name, hsn_code, cgst, sgst, igst, unitOfMeasurements) {
+        this.code = code;
+        this.name = name;
+        this.hsn_code = hsn_code;
+        this.cgst = cgst;
+        this.sgst = sgst;
+        this.igst = igst;
+        this.unitOfMeasurements = unitOfMeasurements;
     }
-    getItemCode() { return this.item_code; }
+    getCode() {
+        return this.code;
+    }
+    getName() {
+        return this.name;
+    }
     getHSNCode() {
         return this.hsn_code;
-    }
-    getCode() {
-        return this.code;
-    }
-    getName() {
-        return this.name;
-    }
-    getIGST() {
-        return this.igst;
-    }
-    getSGST() {
-        return this.sgst;
     }
     getCGST() {
         return this.cgst;
     }
-    getUnitOfMeasurements() {
-        return this.unitOfMeasurements;
-    }
-}*/
-class ItemData {
-    constructor(code,name,hsn_code,itemCode,cgst,igst,sgst,unitOfMeasurements) {
-        this.code=code;
-        this.name=name;
-        this.hsn_code=hsn_code;
-        this.itemCode=itemCode;
-        this.igst=igst;
-        this.cgst=cgst;
-        this.sgst=sgst;
-        this.unitOfMeasurements=unitOfMeasurements;
-    }
-    getHSNCode() {
-        return this.hsn_code;
-    }
-    getCode() {
-        return this.code;
-    }
-    getName() {
-        return this.name;
-    }
-    getItemCode() {
-        return this.itemCode;
-    }
-    getCGST() {
-        return this.igst;
+    getSGST() {
+        return this.sgst;
     }
     getIGST() {
         return this.igst;
-    }
-    getSGST() {
-        return this.sgst;
     }
     getUnitOfMeasurements() {
         return this.unitOfMeasurements;
     }
 }
+
 class State {
-    constructor(code,name,alphaCode) {
-        this.code=code;
-        this.name=name;
-        this.alphaCode=alphaCode;
+    constructor(code, name, alphaCode) {
+        this.code = code;
+        this.name = name;
+        this.alphaCode = alphaCode;
     }
     getCode() {
         return this.code;
@@ -142,24 +61,24 @@ class State {
 }
 
 class Trader {
-    constructor(code,name,address,gst_num,reg_title_1,reg_value_1,contact_1,contact_2,contact_3,bank_custom_name,account_number,branch_name,ifsc_code,state_code){
-        this.code=code;
-        this.name=name;
-        this.address=address;
-        this.gst_num=gst_num;
-        this.reg_title_1=reg_title_1;
-        this.reg_value_1=reg_value_1;
-        this.contact_1=contact_1;
-        this.contact_2=contact_2;
-        this.contact_3=contact_3;
-        this.bank_custom_name=bank_custom_name;
-        this.account_number=account_number;
-        this.branch_name=branch_name;
-        this.ifsc_code=ifsc_code;
-        this.state_code=state_code;
-    }    
+    constructor(code, name, address, gst_num, reg_title_1, reg_value_1, contact_1, contact_2, contact_3, bank_custom_name, account_number, branch_name, ifsc_code, state_code) {
+        this.code = code;
+        this.name = name;
+        this.address = address;
+        this.gst_num = gst_num;
+        this.reg_title_1 = reg_title_1;
+        this.reg_value_1 = reg_value_1;
+        this.contact_1 = contact_1;
+        this.contact_2 = contact_2;
+        this.contact_3 = contact_3;
+        this.bank_custom_name = bank_custom_name;
+        this.account_number = account_number;
+        this.branch_name = branch_name;
+        this.ifsc_code = ifsc_code;
+        this.state_code = state_code;
+    }
     getCode() {
-        return this.code;        
+        return this.code;
     }
     getName() {
         return this.name;
@@ -201,21 +120,22 @@ class Trader {
         return this.state_code;
     }
 }
+
 class Customer {
-    constructor(code,name,address,reg_title_1,reg_value_1,reg_title_2,reg_value_2,reg_title_3,reg_value_3,contact_1,contact_2,contact_3,state_code) {
-        this.code=code;
-        this.name=name;
-        this.address=address;
-        this.reg_title_1=reg_title_1;
-        this.reg_value_1=reg_value_1;
-        this.reg_title_2=reg_title_2;
-        this.reg_value_2=reg_value_2;
-        this.reg_title_3=reg_title_3;
-        this.reg_value_3=reg_value_3;
-        this.contact_1=contact_1;
-        this.contact_2=contact_2;
-        this.contact_3=contact_3;
-        this.state_code=state_code;
+    constructor(code, name, address, reg_title_1, reg_value_1, reg_title_2, reg_value_2, reg_title_3, reg_value_3, contact_1, contact_2, contact_3, state_code) {
+        this.code = code;
+        this.name = name;
+        this.address = address;
+        this.reg_title_1 = reg_title_1;
+        this.reg_value_1 = reg_value_1;
+        this.reg_title_2 = reg_title_2;
+        this.reg_value_2 = reg_value_2;
+        this.reg_title_3 = reg_title_3;
+        this.reg_value_3 = reg_value_3;
+        this.contact_1 = contact_1;
+        this.contact_2 = contact_2;
+        this.contact_3 = contact_3;
+        this.state_code = state_code;
     }
     getCode() {
         return this.code;
@@ -257,4 +177,4 @@ class Customer {
         return this.state_code;
     }
 }
-module.exports={UnitOfMeasurement,Item,ItemData,State,Trader,Customer};
+module.exports = { UnitOfMeasurement, Item, State, Trader, Customer };

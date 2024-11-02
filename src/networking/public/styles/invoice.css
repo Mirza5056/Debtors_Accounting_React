@@ -92,3 +92,241 @@
     padding: 0.9rem;
     margin-left: 196px;
 }
+
+/* General Container Style */
+.invoice-container {
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Section Header Styles */
+  .section-header {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .section-header-primary {
+    color: #1976d2;
+  }
+  
+  /* Icon Button Styles */
+  .icon-button {
+    color: #1976d2;
+    transition: transform 0.2s ease;
+  }
+  
+  .icon-button:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Divider Styles */
+  .divider {
+    margin: 20px 0;
+    background-color: #e0e0e0;
+    height: 1px;
+  }
+  
+  /* Trader and Bank Details Text */
+  .trader-details, .bank-details {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .trader-details .detail-item, .bank-details .detail-item {
+    margin: 5px 0;
+  }
+  
+  /* Invoice Details Flexbox Alignment */
+  .invoice-details-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .invoice-details-container input[type="text"] {
+    font-size: 0.9rem;
+    padding: 8px;
+    width: 100%;
+  }
+  
+  /* Items Section Styles */
+  .items-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .items-section .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .delete-icon {
+    color: #d32f2f;
+    transition: transform 0.2s ease;
+  }
+  
+  .delete-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Table Styling */
+  .items-table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+  }
+  
+  .items-table th, .items-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .items-table th {
+    background-color: #1976d2;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .items-table tr:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .invoice-details-container {
+      flex-direction: column;
+    }
+  
+    .items-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+
+  .search-bar {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 50%;
+    color: var(--text-color);
+  }
+
+  .list-bar {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+  .list-bar-customer {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+  }
+  .list-item:hover {
+    cursor: pointer;
+    background-color: #ccc;
+  }
+
+
+.customer-details-box {
+  padding: 20px;
+  margin-top: 15px;
+  background-color: var(--background-color);
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.customer-details-box h6 {
+  color: #0073e6;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.customer-details-box .detail-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 16px;
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.customer-details-box .divider {
+  border-top: 1px solid #ddd;
+  margin: 10px 0;
+}
+
+
+.addModalText {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.MuiOutlinedInput-root {
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+.MuiButton-contained {
+  color: #fff;
+  font-weight: bold;
+}
+
+
+:root {
+  --background-color-light: #f5f5f5;
+  --text-color-light: #333;
+  --table-header-bg-light: #ddd;
+  --table-row-bg-light: #fff;
+  --table-hover-bg-light: #f0f0f0;
+  --search-bar-bg-light: #e0e0e0;
+  --icon-color-light: #555;
+
+  --background-color-dark: #1e1e1e;
+  --text-color-dark: #e0e0e0;
+  --table-header-bg-dark: #444;
+  --table-row-bg-dark: #333;
+  --table-hover-bg-dark: #555;
+  --search-bar-bg-dark: #2c2c2c;
+  --icon-color-dark: #bbb;
+}
+
+/* Switching colors for light and dark modes */
+body.light-mode {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --table-header-bg: var(--table-header-bg-light);
+  --table-row-bg: var(--table-row-bg-light);
+  --table-hover-bg: var(--table-hover-bg-light);
+  --search-bar-bg: var(--search-bar-bg-light);
+  --icon-color: var(--icon-color-light);
+}
+
+body.dark-mode {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --table-header-bg: var(--table-header-bg-dark);
+  --table-row-bg: var(--table-row-bg-dark);
+  --table-hover-bg: var(--table-hover-bg-dark);
+  --search-bar-bg: var(--search-bar-bg-dark);
+  --icon-color: var(--icon-color-dark);
+}
+
