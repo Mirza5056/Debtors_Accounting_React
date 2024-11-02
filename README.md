@@ -8,6 +8,10 @@ Developed a comprehensive accounting application to manage sales and debtor tran
 
 ### Demo Images Of Projects
 ![Debtor's Accounting Demo Image...](demo-image/hero-section.png)
+![Debtor's Accounting Demo Image...](demo-image/customer-dark-theme.png)
+![Debtor's Accounting Demo Image...](demo-image/traders%202.png)
+![Debtor's Accounting Demo Image...](demo-image/traders%203.png)
+![Debtor's Accounting Demo Image...](demo-image/traders.png)
 
 
 # Getting Started with Create React App
