@@ -1,3 +1,15 @@
+### Projects
+
+**Debtor's Accounting Project**
+*Built with React, Redux, OracleDB, and Node.js*
+
+Developed a comprehensive accounting application to manage sales and debtor transactions effectively. Includes detailed tax calculations, customer management, and invoice generation, streamlining transaction handling for businesses.
+
+
+### Demo Images Of Projects
+![Debtor's Accounting Demo Image...](demo-image/hero-section.png)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -32,7 +44,6 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `npm run eject`
 
 
-![Debtor's Accounting Demo Image...](demo-image/hero-section.png)
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
